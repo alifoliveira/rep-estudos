@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detra</title>
+    <style>
+        body {
+            background: rgb(49, 49, 49);
+            font: normal 12pt Arial;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Multas</h1>
+    Velocidade do Carro: <input type="number" name="txtVel" id="txtVel"> Km/h
+    <input type="button" value="Verificar" onclick="calcular()"></p>
+    <div id='res'>
+
+    </div>
+    <script>
+        
+        function calcular() {
+            var txtV = document.querySelector('input#txtVel')
+            var res = document.querySelector('div#res')
+            var vel = Number(txtV.value)
+            res.innerHTML = `Sua velocidade é de <strong>${vel} Km/h</strong></p>`
+            if (vel > 60) {
+                res.innerHTML += `Você está <strong>MULTADO</strong> por excesso de velocidade`
+            } else {
+                res.innerHTML += `Diriga sempre com cinto de segurança</p>`
+            }
+        }
+    </script>
+</body>
+</html>
