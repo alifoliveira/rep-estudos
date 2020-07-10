@@ -6,7 +6,7 @@ valor = np.loadtxt(fname = 'numpy\data\carros-valor.txt')
 
 # column_stack
 
-dataset = np.column_stack((anos, km, valor)) # transforma em colunas
+dataset = np.column_stack((anos, km, valor)) # transforma em coluna
 print(dataset.shape)                         # agora possui 3 colunas (anos, km, valor)
 
 media = np.mean(dataset, axis=0)             # retorna media das colunas
