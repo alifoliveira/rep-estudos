@@ -8,9 +8,9 @@
 def boas_vindas 
     puts "Bem vindo ao jogo da adivinhação"
     puts "Qual é o seu nome?"
-    nome = gets
+    nome = gets.strip
     puts "\n\n\n"
-    puts "Começaremos o jogo para você, " + nome
+    puts "Começaremos o jogo para você, #{nome}"
 end
 
 def sortear_numero_secreto
@@ -20,11 +20,12 @@ def sortear_numero_secreto
     sorteado  # isso é o return
 end
 
-def pede_numero(tentativa, limite_tentativa)
+def pede_numero(chutes, tentativa, limite_tentativa)
     puts "\n\n\n"
-    puts "Tentativa " + tentativa.to_s + " de " + limite_tentativa.to_s
+    puts "Tentativa #{tentativa.to_s} de #{limite_tentativa.to_s}" # "texto #{var} = interpolação de string + variavel""
+    puts "Chutes até agora:" + chutes.to_s
     puts "Entre com o número"
-    chute = gets
+    chute = gets.strip
     puts "Será que acertou? Você chutou " + chute
     chute
 end
@@ -50,8 +51,12 @@ boas_vindas
 numero_secreto = sortear_numero_secreto
 
 limite_tentativa = 5
+chutes = []
 
 for tentativa in 1..limite_tentativa
-    chute = pede_numero(tentativa, limite_tentativa) # não é obrigado passsar parenteses, mas eu vou!
+
+    chute = pede_numero(chutes, tentativa, limite_tentativa) # não é obrigado passsar parenteses, mas eu vou!
+    chutes << chute # append
+
     break if verifica_acerto(numero_secreto, chute)
 end
