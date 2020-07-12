@@ -27,7 +27,7 @@ def pede_numero(chutes, tentativa, limite_tentativa)
     puts "Entre com o número"
     chute = gets.strip
     puts "Será que acertou? Você chutou " + chute
-    chute
+    chute.to_i
 end
 
 def verifica_acerto(numero_secreto, chute)
@@ -44,19 +44,24 @@ def verifica_acerto(numero_secreto, chute)
     else
         puts "O número secreto é menor!"
     end
-    false
+    return false
 end
 
 boas_vindas
 numero_secreto = sortear_numero_secreto
+pontos = 1000
 
 limite_tentativa = 5
 chutes = []
 
 for tentativa in 1..limite_tentativa
-
     chute = pede_numero(chutes, tentativa, limite_tentativa) # não é obrigado passsar parenteses, mas eu vou!
-    chutes << chute # append
+    chutes << chute                                          # append
+
+    pontos_a_perder = (chute - numero_secreto).abs / 2.0     # calculo de remoção de pontos | divisão por 0.5 converte resultado para float   
+    pontos -= pontos_a_perder                                # pontos perdidos
 
     break if verifica_acerto(numero_secreto, chute)
 end
+
+puts "Você ganhou #{pontos} pontos."
