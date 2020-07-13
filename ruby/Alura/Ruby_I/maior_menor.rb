@@ -15,9 +15,9 @@ end
 
 def sortear_numero_secreto
     puts "Escolhendo um número secreto entre 0 e 200..."
-    sorteado = 175
+    sorteado = rand(200) # rand return numero entre 0 e 1 (multiplica por n). Nesse caso, gera um numero entre 0 e 200
     puts "Escolhido... que tal adivinhar nosso número secreto?"
-    sorteado  # isso é o return
+    sorteado             # isso é o return com "return" oculto
 end
 
 def pede_numero(chutes, tentativa, limite_tentativa)
@@ -62,7 +62,9 @@ for tentativa in 1..limite_tentativa
     pontos_a_perder = (chute - numero_secreto).abs / 0.5    # calculo de remoção de pontos | divisão por 0.5 converte resultado para float   
     pontos -= pontos_a_perder                               # pontos perdidos
 
-    break if verifica_acerto(numero_secreto, chute)
+    if verifica_acerto(numero_secreto, chute)
+        break
+    end
 end
 
 puts "Você ganhou #{pontos} pontos."
