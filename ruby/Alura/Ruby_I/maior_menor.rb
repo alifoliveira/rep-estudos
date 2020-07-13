@@ -1,5 +1,13 @@
 def boas_vindas 
-    puts "Bem vindo ao jogo da adivinhação"
+    puts
+    puts "        P  /_\\  P                              "
+    puts "       /_\\_|_|_/_\\                             "
+    puts "   n_n | ||. .|| | n_n         Bem vindo ao    "
+    puts "   |_|_|nnnn nnnn|_|_|     Jogo de Adivinhação!"
+    puts "  |' '  |  |_|  |'  ' |                        "
+    puts "  |_____| ' _ ' |_____|                        " 
+    puts "        \\__|_|__/                              "
+    puts
     puts "Qual é o seu nome?"
     nome = gets.strip
     puts "\n\n\n"
@@ -8,7 +16,9 @@ def boas_vindas
 end
 
 def pede_dificuldade
-    puts "Qual o nível de dificuldade que deseja? (1 fácil, 5 difícil)"
+    puts "Qual o nível de dificuldade?"
+    puts "(1) Muito fácil (2) Fácil (3) Normal (4) Difícil (5) Impossível"
+    puts "Escolha: "
     dificuldade = gets.to_i
 end
 
@@ -44,11 +54,11 @@ def pede_numero(chutes, tentativa, limite_tentativa)
     chute.to_i
 end
 
-def verifica_acerto(numero_secreto, chute)
+def acertou?(numero_secreto, chute)
     acertou = numero_secreto == chute.to_i
 
     if acertou
-        puts "Acertou!"
+        ganhou()
         return true
     end
     
@@ -59,6 +69,28 @@ def verifica_acerto(numero_secreto, chute)
         puts "O número secreto é menor!"
     end
     return false
+end
+
+def ganhou
+    puts
+    puts "             OOOOOOOOOOO               "
+    puts "         OOOOOOOOOOOOOOOOOOO           "
+    puts "      OOOOOO  OOOOOOOOO  OOOOOO        "
+    puts "    OOOOOO      OOOOO      OOOOOO      "
+    puts "  OOOOOOOO  #   OOOOO  #   OOOOOOOO    "
+    puts " OOOOOOOOOO    OOOOOOO    OOOOOOOOOO   "
+    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  "
+    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  "
+    puts "OOOO  OOOOOOOOOOOOOOOOOOOOOOOOO  OOOO  "
+    puts " OOOO  OOOOOOOOOOOOOOOOOOOOOOO  OOOO   "
+    puts "  OOOO   OOOOOOOOOOOOOOOOOOOO  OOOO    "
+    puts "    OOOOO   OOOOOOOOOOOOOOO   OOOO     "
+    puts "      OOOOOO   OOOOOOOOO   OOOOOO      "
+    puts "         OOOOOO         OOOOOO         "
+    puts "             OOOOOOOOOOOO              "
+    puts
+    puts "               Acertou!                "
+    puts
 end
 
 def run(nome, dificuldade)
@@ -74,7 +106,7 @@ def run(nome, dificuldade)
         
         # cheat
         if nome == "admin"
-            puts "Acertou!"
+            ganhou()
             break
         end
 
@@ -82,7 +114,7 @@ def run(nome, dificuldade)
         pontos_a_perder = (chute - numero_secreto).abs / 0.5 
         pontos -= pontos_a_perder # pontos perdidos
 
-        if verifica_acerto(numero_secreto, chute)
+        if acertou?(numero_secreto, chute)
             break
         end
     end
@@ -96,12 +128,14 @@ def nao_quer_jogar? # por convenção se usar "?" na função que retorna boolea
     nao_quero_jogar = quero_jogar.upcase == "N"
 end
 
-nome = boas_vindas()
-dificuldade = pede_dificuldade()
+# INICIAR JOGO
+nome = boas_vindas()                # mensagem de boas vindas
+dificuldade = pede_dificuldade()    # seleção de dificuldade
 
+# coloca o jogo em loop
 loop do
-    run(nome, dificuldade)
-    if nao_quer_jogar?()
+    run(nome, dificuldade)  # iniciar jogo
+    if nao_quer_jogar?()    # pergunta se quer para jogo (loop)
         break
     end
 end
