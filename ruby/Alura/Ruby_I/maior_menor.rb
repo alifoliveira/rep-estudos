@@ -93,7 +93,7 @@ def ganhou
     puts
 end
 
-def run(nome, dificuldade)
+def jogar(nome, dificuldade)
     numero_secreto = sortear_numero_secreto(dificuldade)
     pontos = 1000
 
@@ -132,10 +132,9 @@ end
 nome = boas_vindas()                # mensagem de boas vindas
 dificuldade = pede_dificuldade()    # seleção de dificuldade
 
-# coloca o jogo em loop
-loop do
-    run(nome, dificuldade)  # iniciar jogo
-    if nao_quer_jogar?()    # pergunta se quer para jogo (loop)
-        break
+loop do                       # coloca o jogo em loop
+    jogar(nome, dificuldade)  # começa o jogo
+    if nao_quer_jogar?()      # pergunta se quer para jogo (loop)
+        break                 # finaliza o jogo (loop)
     end
 end
