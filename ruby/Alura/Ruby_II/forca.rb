@@ -1,44 +1,15 @@
-def boas_vindas
-    puts "Bem vindo ao jogo da forca!"
-    puts "Qual é o seu nome?"
-    nome = gets.strip
-    puts "\n\n\n"
-    puts "Começaremos o jogo para você, #{nome}."
-    return nome
-end
+require_relative 'ui' # requere lib relativa ao diretório desse arquivo, com prefixo ui
 
-def escolhe_palavra_secreta
-    puts "Escolhendo uma palavra secreta..."
-    palavra_secreta = "programador"
-    puts "Palavra secreta com #{palavra_secreta.size} letras... Boa sorte!"
-    return palavra_secreta
-end
-
-def nao_quer_jogar?
-    puts "Deseja jogar novamente? (S/N)"
-    quero_jogar = gets.strip
-    nao_quero_jogar = quero_jogar.upcase == "N"
-    return nao_quero_jogar
-end
-
-def pede_um_chute(chutes, erros)
-    puts "\n\n\n"
-    puts "Erros até agora:  #{erros}"
-    puts "Chutes até agora: #{chutes}"
-    puts "Entre com uma letra ou uma palavra"
-    chute = gets.strip
-    puts "Será que acertou? Você chutou #{chute}"
-    return chute
-end
-
-def conta(texto, letra)
-    total_encontrado = 0
-    for caractere in texto.chars # transforma string em um array de caracteres | percorre caracteres em texto
-        if caractere == letra
-            total_encontrado += 1
+def pede_chute_valido(chutes, erros)
+    cabecalho_tentativa(chutes, erros)
+    loop do
+        chute = pede_um_chute()
+        if chutes.include? chute # verificar se está incluso na lista
+            avisa_chute(chute)
+        else
+            return chute
         end
     end
-    return total_encontrado
 end
 
 def joga(nome)
@@ -49,35 +20,35 @@ def joga(nome)
     pontos_ate_agora = 0
 
     while erros < 5
-        chute = pede_um_chute(chutes, erros)
-        if chutes.include? chute # verificar se está incluso na lista
-            puts "Você já chutou #{chute}."
-            next # inicia proxima iteração
-        end
+        chute = pede_chute_valido(chutes, erros)
         chutes << chute
         
-        # verificação
+        # Verificação
         chutou_uma_letra = chute.size == 1
 
-        # caso chute for uma letra
+        # Caso chute for uma letra
         if chutou_uma_letra
             letra_procurada = chute
             total_encontrado  = palavra_secreta.count(letra_procurada) # conta quantas vezes um caractere se repete em uma string
+            # Errou
             if total_encontrado == 0
-                puts "Letra não encontrada."
+                avisa_letra_nao_encontrada()
                 erros += 1
+            # Acertou
             else
-                puts "Letra encontrada #{total_encontrado} vezes."
+                avisa_letra_encontrada(total_encontrado)
             end
-        # caso o chute for uma palavra
+        # Caso o chute for uma palavra
         else
             acertou = chute == palavra_secreta
+            # Acertou
             if acertou
-                puts "Parabéns! Acertou!"
+                avisa_acertou_palavra()                
                 pontos_ate_agora += 100
                 break
+            # Errou
             else
-                puts "Que pena... errou"
+                avisa_errou_palavra()
                 pontos_ate_agora -= 30
                 erros += 1
             end
@@ -85,15 +56,18 @@ def joga(nome)
 
     end
 
-    puts "Você ganhou #{pontos_ate_agora} pontos."
+    avisa_pontos(pontos_ate_agora)
 end
 
-nome = boas_vindas()
-palavra_secreta = escolhe_palavra_secreta()
+def jogo_da_forca   
+    nome = boas_vindas()
 
-loop do
-    joga(nome)
-    if nao_quer_jogar?
-        break
+    loop do
+        joga(nome)
+        if nao_quer_jogar?
+            break
+        end
     end
 end
+
+
