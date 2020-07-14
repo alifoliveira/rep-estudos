@@ -1,7 +1,19 @@
 require_relative 'ui' # requere lib relativa ao diretório desse arquivo, com prefixo ui
 
-def pede_chute_valido(chutes, erros)
-    cabecalho_tentativa(chutes, erros)
+def palavra_mascarada(chutes, palavra_secreta)
+    mascara = ""
+    for letra in palavra_secreta.chars
+        if chutes.include? letra
+            mascara << letra
+        else
+            mascara << "_"
+        end
+    end
+    return mascara
+end
+
+def pede_chute_valido(chutes, erros, mascara)
+    cabecalho_tentativa(chutes, erros, mascara)
     loop do
         chute = pede_um_chute()
         if chutes.include? chute # verificar se está incluso na lista
@@ -20,7 +32,8 @@ def joga(nome)
     pontos_ate_agora = 0
 
     while erros < 5
-        chute = pede_chute_valido(chutes, erros)
+        mascara = palavra_mascarada(chutes, palavra_secreta)
+        chute = pede_chute_valido(chutes, erros, mascara)
         chutes << chute
         
         # Verificação
