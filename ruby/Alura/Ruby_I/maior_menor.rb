@@ -23,7 +23,7 @@ def pede_dificuldade
 end
 
 def sortear_numero_secreto(dificuldade)
-    # config dificuldade
+    # config dificuldade | max = intervalo de possibilidades
     case dificuldade
     when 1
         maximo = 30
@@ -41,7 +41,7 @@ def sortear_numero_secreto(dificuldade)
     puts "Escolhendo um número secreto entre 1 e #{maximo}..."
     sorteado = rand(maximo) + 1 # rand return numero entre 0 e 1 (multiplica por n). Nesse caso, gera um numero entre 0 e 200
     puts "Escolhido... que tal adivinhar nosso número secreto?"
-    sorteado                # isso é o return com "return" oculto
+    return sorteado                    # isso é o return com "return" oculto
 end
 
 def pede_numero(chutes, tentativa, limite_tentativa)
@@ -51,7 +51,7 @@ def pede_numero(chutes, tentativa, limite_tentativa)
     chute = gets.strip
     puts "\n\n\n"
     puts "Será que acertou? Você chutou #{chute}..."
-    chute.to_i
+    return chute.to_i
 end
 
 def acertou?(numero_secreto, chute)
@@ -126,6 +126,7 @@ def nao_quer_jogar? # por convenção se usar "?" na função que retorna boolea
     puts "Dejesa jogar novamente? (S/N)"
     quero_jogar = gets.strip
     nao_quero_jogar = quero_jogar.upcase == "N"
+    return nao_quero_jogar
 end
 
 # INICIAR JOGO
