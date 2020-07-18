@@ -1,7 +1,7 @@
 require_relative 'ui'
 
 def le_mapa(numero)
-    arquivo = "fogefoge_game\\mapa#{numero}.txt"
+    arquivo = "fogefoge_game\\mapas\\mapa#{numero}.txt"
     texto = File.read(arquivo)
     mapa = texto.split("\n")
 end
@@ -14,8 +14,8 @@ def encontra_jogador(mapa)
             # Achei linha e coluna!
             return [linha, coluna_do_heroi]
         end
-        # não achei
     end
+    # não achei
 end
 
 def calcula_nova_posicao(heroi, direcao)
