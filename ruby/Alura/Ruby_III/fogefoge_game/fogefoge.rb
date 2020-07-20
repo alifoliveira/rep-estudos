@@ -1,7 +1,7 @@
 require_relative 'ui'
 
 def le_mapa(numero)
-    arquivo = "fogefoge_game\\mapas\\mapa#{numero}.txt"
+    arquivo = "mapas\\mapa#{numero}.txt"
     texto = File.read(arquivo)
     mapa = texto.split("\n")
 end
@@ -15,7 +15,7 @@ def encontra_jogador(mapa)
             return [linha, coluna_do_heroi]
         end
     end
-    # não achei
+    nil
 end
 
 def calcula_nova_posicao(heroi, direcao)
@@ -50,27 +50,57 @@ def posicao_valida?(mapa, posicao)
     return true
 end
 
-def move_fantasma(mapa, linha, coluna)
-    posicao = [linha, coluna + 1]
-    if posicao_valida?(mapa, posicao)
-        mapa[linha][coluna] = " "
-        mapa[posicao[0]][posicao[1]] = "F"
+def soma_vetor(vetor1, vetor2)
+    [vetor1[0] + vetor2[0], vetor1[1] + vetor2[1]]
+end
+
+def posicoes_validas(mapa, novo_mapa, posicao)
+    posicoes = []
+    movimentos = [[+1, 0], [0, +1], [-1, 0], [0, -1]]
+    movimentos.each do |movimento|
+        nova_posicao = soma_vetor(movimento, posicao)
+        if posicao_valida?(mapa, nova_posicao) && posicao_valida?(novo_mapa, nova_posicao)
+            posicoes << nova_posicao
+        end
     end
+    return posicoes
+end
+
+def move_fantasma(mapa, novo_mapa, linha, coluna)
+    posicoes = posicoes_validas(mapa, novo_mapa, [linha, coluna])
+    return if posicoes.empty?   # retorna se estiver vazio
+
+    aleatoria = rand(posicoes.size)
+    posicao = posicoes[aleatoria]
+    mapa[linha][coluna] = " "
+    novo_mapa[posicao[0]][posicao[1]] = "F"
 end
 
 def move_fantasmas(mapa)
     fantasma_caractere = "F"
+    novo_mapa = copia_mapa(mapa)
     mapa.each_with_index do |linha_atual, linha|
         linha_atual.chars.each_with_index do |caractere_atual, coluna|
             if eh_fantasma = caractere_atual == fantasma_caractere
-                move_fantasma(mapa, linha, coluna)
+                move_fantasma(mapa, novo_mapa, linha, coluna)
             end
         end
-    end 
+    end
+    return novo_mapa
+end
+
+def copia_mapa(mapa)
+    novo_mapa = mapa.join("\n").tr("F", " ").split("\n")
+    return novo_mapa
+end
+
+def jogador_perdeu?(mapa)
+    perdeu = !encontra_jogador(mapa)
 end
 
 def jogo(nome)
     mapa = le_mapa(2)
+
     while true
         desenha(mapa)
         direcao = pede_movimento
@@ -81,7 +111,12 @@ def jogo(nome)
         end
         mapa[heroi[0]][heroi[1]] = " "
         mapa[nova_posicao[0]][nova_posicao[1]] = "H"
-        move_fantasmas(mapa)
+
+        mapa = move_fantasmas(mapa)
+        if jogador_perdeu?(mapa)
+            game_over()
+            break
+        end
     end
 end
 
