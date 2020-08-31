@@ -12,4 +12,5 @@ migrate = Migrate(app, db) # Migrate irá gerenciar as migrações do database d
 manager = Manager(app) # Migrade irá gerencias os comandos da aplicação
 manager.add_command('db', MigrateCommand)
 
+from app.models import tables
 from app.controllers import default

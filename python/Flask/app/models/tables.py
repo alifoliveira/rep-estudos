@@ -22,11 +22,11 @@ class User(db.Model): # Model: Modelo de tabela padrão do SQLAlchemy
     
 
 class Post(db.Model):
-    __tablename__ = 'posts'
+    __tablename__ = "posts"
     
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # Definindo chave estrangeira
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id')) # Definindo chave estrangeira
     
     user = db.relationship('User', foreign_keys=user_id) # Definindo relação da chave estrangeira
     
