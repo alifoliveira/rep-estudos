@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="bt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>Toilter</title>
+</head>
+<body>
+    <h1>Toilter</h1>
+    {% if user %} 
+    <p>Bem vindo ao Toilter, {{ user }}!</p>
+    {% else %}
+    <p>Bem vindo ao Toilter, Usuário.</p>
+    {% endif %}
+
+    <script>src="{{ url_for('static', filename='js/bootstrap.min.js') }}"</script>
+</body>
+</html>
