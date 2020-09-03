@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy # ORM do flask
-from flask_script import Manager # Gerencia execução
-from flask_migrate import Migrate, MigrateCommand # Gerencia migração de db
+from flask_script import Manager # Gerencia execução do app
+from flask_migrate import Migrate, MigrateCommand # Gerencia migração do database
 
 app = Flask(__name__)
 app.config.from_object('config') # Seleciona configurações do server da aplicação (arquivo)
