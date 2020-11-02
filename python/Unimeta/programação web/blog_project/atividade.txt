@@ -1,0 +1,7 @@
+Creie uma aplicação com Django de blog.
+
+O blog deverá ter mecanismo de postagem (CRUD) com:
+    * Título;
+    * Data de criação;
+    * Data de última atualização;
+    * Conteúdo da postagem.
