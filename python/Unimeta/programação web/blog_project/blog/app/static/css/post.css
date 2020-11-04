@@ -2,3 +2,30 @@
     margin: 0 auto;
     width: 45% !important;
 }
+
+.post-box {
+    margin: 0 auto;
+    margin-bottom: 70px;
+    padding: 20px;
+    width: 70% !important;
+    background-color: #eeeeee !important;
+}
+
+.post-box h4 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.post-box p {
+    text-align: justify;
+}
+
+.fa.fa-trash, .fas.fa-edit {
+    cursor: pointer;
+    margin: 5px;
+    font-size: 20px;
+    float: right;
+    color: #525252;
+}
+

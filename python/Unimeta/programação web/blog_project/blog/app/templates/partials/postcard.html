@@ -1,0 +1,14 @@
+<div class="post-box">
+    {% for post in posts %}
+    <h4>{{post.title}}</h4>
+    <p>{{post.content}}</p>
+    <div class="text-muted">
+        <span>created: {{post.created_at}}</span>
+        <span>edited: {{post.updated_at}}</span>
+        <a href="/deletepost/{{ post.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="/editpost/{{ post.id }}"><i class="fas fa-edit"></i></a>
+    </div>
+    <hr/>
+    {% endfor %}
+</div>
+
